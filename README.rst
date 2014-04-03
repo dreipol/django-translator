@@ -1,6 +1,6 @@
-=====
+===========
 Translator
-=====
+===========
 
 Translator is an app for collecting translations for specified keys in django admin.
 
