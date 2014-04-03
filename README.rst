@@ -46,3 +46,12 @@ Quick start
 6. Visit the templates. The keys get collected lazy.
 
 7. Translate the keys in the admin.
+
+
+Project Home
+------------
+https://github.com/dreipol/django-translator
+
+PyPi
+------------
+https://pypi.python.org/pypi/django-translator
