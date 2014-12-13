@@ -20,7 +20,7 @@ Quick start
 #. You have to set the migrations folder for the translator, because we have to add migrations for the set languages. (More informations on the `South documentation <http://south.readthedocs.org/en/latest/settings.html#south-migration-modules>`_.) Add the following to your settings file:
 	
 	SOUTH_MIGRATION_MODULES = {
-	    'translator': 'my_project.migrations.translator',
+	    'translator': 'my_project.migrations',
 	}
 	
 #. Create a ``migrations`` python package in your project folder (where your settings.py usually is).
