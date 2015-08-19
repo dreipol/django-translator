@@ -2,4 +2,5 @@ v1.0, 2014/04/03 -- Initial release.
 v1.0.1, 2014/04/03 --Added Github to README.
 v1.0.2, 2014/04/03 --Added South migration description to README.
 v1.0.3, 2014/11/27 --Changed memchache key generation to use sha256 hash values
-v1.0.3, 2015/08/19 -- Python >= x and Django >= 1.7 support. Older versions are not supported.
+v1.0.4, 2015/08/19 -- Python >= x and Django >= 1.7 support. Older versions are not supported.
+v1.0.5, 2015/08/19 -- Variables are now resolved when passed into the render_translation tag
