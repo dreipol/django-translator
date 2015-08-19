@@ -20,13 +20,13 @@ def get_translation_for_key(item):
             result = Translation(key=item)
             result.description = item
             result.save()
-            result = unicode(result.description)
+            result = result.description
         cache.set(key, result)
     return mark_safe(result)
 
 
 def get_key(lang, item):
-    item = hashlib.sha256(item).hexdigest()
+    item = hashlib.sha256(item.encode('utf-8')).hexdigest()
     key = u'{0}-{1}'.format(lang, item)
     return key
 
@@ -34,4 +34,4 @@ def translator(key):
     return get_translation_for_key(key)
 
 
-translator_lazy = lazy(get_translation_for_key, unicode)
+translator_lazy = lazy(get_translation_for_key, str)

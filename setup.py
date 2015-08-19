@@ -4,14 +4,14 @@ from pip.req import parse_requirements
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
-reqs =['South>=0.8.4', 'django-modeltranslation>=0.7.3', 'django-taggit>=0.11.2']
+reqs = ['Django>=1.7', 'django-modeltranslation>=0.10.0', 'django-taggit>= 0.12.0']
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-translator',
-    version='1.0.3',
+    version='1.0.4',
     packages=['translator'],
     include_package_data=True,
     license='MIT License',
@@ -27,8 +27,7 @@ setup(
         'License :: OSI Approved :: MIT License', # example license
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.x',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
