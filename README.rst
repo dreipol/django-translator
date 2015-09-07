@@ -20,11 +20,10 @@ Quick start
 #. You have to set the migrations folder for the translator, because we have to add migrations for the set languages.  Add the following to your settings file:
 	
 	MIGRATION_MODULES = {
-	    'translator': 'my_project.migrations.translator',
+	    'translator': 'my_project.translator_migrations',
 	}
 	
-#. Create a ``migrations`` python package in your project folder (where your settings.py usually is).
-
+#. Create a ``translator_migrations`` python package in your project folder (where your settings.py usually is).
 
 #. Run ``python manage.py makemigrations translator`` to create the translator models based on the languages you specified in your settings file.
 

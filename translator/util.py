@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.utils.functional import lazy
 from django.utils.safestring import mark_safe
+from django.db.utils import OperationalError
 import hashlib
+import logging
 
 
 def get_translation_for_key(item):
@@ -13,15 +15,21 @@ def get_translation_for_key(item):
     lang = get_language()
     key = get_key(lang, item)
     result = cache.get(key)
-    if not result:
-        try:
-            result = Translation.objects.get(key=item).description
-        except ObjectDoesNotExist:
-            result = Translation(key=item)
-            result.description = item
-            result.save()
-            result = result.description
-        cache.set(key, result)
+
+    try:
+        if not result:
+            try:
+                result = Translation.objects.get(key=item).description
+            except ObjectDoesNotExist:
+                result = Translation(key=item)
+                result.description = item
+                result.save()
+                result = result.description
+            cache.set(key, result)
+    except OperationalError:
+        logging.getLogger(__name__).info("Unable to get translation for {0}".format(item), )
+        result = item
+
     return mark_safe(result)
 
 
