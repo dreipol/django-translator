@@ -38,8 +38,13 @@ def get_key(lang, item):
     key = u'{0}-{1}'.format(lang, item)
     return key
 
+
 def translator(key):
     return get_translation_for_key(key)
 
 
-translator_lazy = lazy(get_translation_for_key, str)
+def translator_lazy(item):
+    if len(item) == 0:
+        return ''
+    else:
+        return lazy(get_translation_for_key, str)(item)
