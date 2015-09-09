@@ -6,3 +6,5 @@ v1.0.4, 2015/08/19 -- Python >= 3 and Django >= 1.7 support. Older versions are 
 v1.0.5, 2015/08/19 -- Variables are now resolved when passed into the render_translation tag
 v1.0.6, 2015/09/07 -- Fixes issues when used in settings file, updated documentation.
 v1.0.7, 2015/09/08 -- Fixes errors when empty keys are used.
+v1.0.8, 2015/09/09 -- uses six string types for lazy translator proxy object instead of str
+

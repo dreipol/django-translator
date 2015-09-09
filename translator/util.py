@@ -47,4 +47,12 @@ def translator_lazy(item):
     if len(item) == 0:
         return ''
     else:
+        import six
+        return lazy(get_translation_for_key, six.string_types)(item)
+
+
+def translator_lazy_str(item):
+    if len(item) == 0:
+        return ''
+    else:
         return lazy(get_translation_for_key, str)(item)
