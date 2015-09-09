@@ -7,4 +7,5 @@ v1.0.5, 2015/08/19 -- Variables are now resolved when passed into the render_tra
 v1.0.6, 2015/09/07 -- Fixes issues when used in settings file, updated documentation.
 v1.0.7, 2015/09/08 -- Fixes errors when empty keys are used.
 v1.0.8, 2015/09/09 -- uses six string types for lazy translator proxy object instead of str
+v1.0.9, 2015/09/09 -- uses six text types
 
