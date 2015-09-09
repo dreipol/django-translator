@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from django.db.utils import OperationalError
 import hashlib
 import logging
-
+import six
 
 def get_translation_for_key(item):
     from django.core.exceptions import ObjectDoesNotExist
@@ -47,8 +47,7 @@ def translator_lazy(item):
     if len(item) == 0:
         return ''
     else:
-        import six
-        return lazy(get_translation_for_key, six.string_types)(item)
+        return lazy(get_translation_for_key, six.text_type)(item)
 
 
 def translator_lazy_str(item):
