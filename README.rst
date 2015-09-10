@@ -57,6 +57,8 @@ Quick start
 #. Translate the keys in the admin.
 
 
+#. You can disable the translator by setting DJANGO_TRANSLATOR_ENABLED to False.
+
 Project Home
 ------------
 https://github.com/dreipol/django-translator

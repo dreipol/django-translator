@@ -2,6 +2,7 @@
 from django.utils.functional import lazy
 from django.utils.safestring import mark_safe
 from django.db.utils import OperationalError
+from django.conf import settings
 import hashlib
 import logging
 import six
@@ -12,22 +13,25 @@ def get_translation_for_key(item):
     from translator.models import Translation
     from django.core.cache import cache
 
-    lang = get_language()
-    key = get_key(lang, item)
-    result = cache.get(key)
+    if getattr(settings, "DJANGO_TRANSLATOR_ENABLED", True):
+        lang = get_language()
+        key = get_key(lang, item)
+        result = cache.get(key)
 
-    try:
-        if not result:
-            try:
-                result = Translation.objects.get(key=item).description
-            except ObjectDoesNotExist:
-                result = Translation(key=item)
-                result.description = item
-                result.save()
-                result = result.description
-            cache.set(key, result)
-    except OperationalError:
-        logging.getLogger(__name__).info("Unable to get translation for {0}".format(item), )
+        try:
+            if not result:
+                try:
+                    result = Translation.objects.get(key=item).description
+                except ObjectDoesNotExist:
+                    result = Translation(key=item)
+                    result.description = item
+                    result.save()
+                    result = result.description
+                cache.set(key, result)
+        except OperationalError:
+            logging.getLogger(__name__).info("Unable to get translation for {0}".format(item), )
+            result = item
+    else:
         result = item
 
     return mark_safe(result)
