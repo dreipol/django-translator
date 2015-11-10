@@ -8,17 +8,17 @@ Quick start
 -----------
 #. Install django-translator: ``pip install django-translator``
 
-#. Add "translator, taggit, modeltranslation" to your INSTALLED_APPS setting. Please note that ``modeltranslation`` needs to be before ``django.contrib.admin``:
+#. Add "translator, taggit, modeltranslation" to your INSTALLED_APPS setting. Please note that ``modeltranslation`` needs to be before ``django.contrib.admin``::
 
-      INSTALLED_APPS = (
-      	  'modeltranslation',
-      	  'django.contrib.admin',
-           ...
-    	  'taggit',
-	  'translator',
-	  )
+	INSTALLED_APPS = (
+	'modeltranslation',
+	'django.contrib.admin',
+	...
+	'taggit',
+	'translator',
+	)
 
-#. You have to set the migrations folder for the translator, because we have to add migrations for the set languages.  Add the following to your settings file:
+#. You have to set the migrations folder for the translator, because we have to add migrations for the set languages.  Add the following to your settings file::
 	
 	MIGRATION_MODULES = {
 	    'translator': 'my_project.translator_migrations',
