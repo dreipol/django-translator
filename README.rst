@@ -6,15 +6,16 @@ Translator is an app for collecting translations for specified keys in django ad
 
 Quick start
 -----------
+#. Install django-translator: ``pip install django-translator``
 
-1. Add "translator, taggit, modeltranslation" to your INSTALLED_APPS setting like this::
+#. Add "translator, taggit, modeltranslation" to your INSTALLED_APPS setting. Please note that ``modeltranslation`` needs to be before ``django.contrib.admin``:
 
       INSTALLED_APPS = (
-          ...
+      	  'modeltranslation',
+      	  'django.contrib.admin',
+           ...
     	  'taggit',
-    	  'modeltranslation',
 	  'translator',
-      
 	  )
 
 #. You have to set the migrations folder for the translator, because we have to add migrations for the set languages.  Add the following to your settings file:
