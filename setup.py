@@ -1,6 +1,5 @@
 import os
 from setuptools import setup
-from pip.req import parse_requirements
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
