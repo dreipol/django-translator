@@ -7,6 +7,7 @@ import hashlib
 import logging
 import six
 
+
 def get_translation_for_key(item):
     from django.core.exceptions import ObjectDoesNotExist
     from django.utils.translation import get_language

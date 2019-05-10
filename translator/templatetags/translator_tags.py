@@ -5,6 +5,7 @@ from translator.util import get_translation_for_key
 
 register = template.Library()
 
+
 class VariableRenderingNode(template.Node):
 
     def __init__(self, some_key):
@@ -21,5 +22,6 @@ def render_variable(parser, token):
     # except ValueError:
     #     pass
     return VariableRenderingNode(variable_value)
+
 
 register.tag('render_translation', render_variable)

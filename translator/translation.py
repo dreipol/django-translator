@@ -6,4 +6,5 @@ from translator.models import Translation
 class TranslationTranslationOptions(TranslationOptions):
     fields = ('description',)
 
+
 translator.register(Translation, TranslationTranslationOptions)

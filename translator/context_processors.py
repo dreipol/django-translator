@@ -13,5 +13,5 @@ class Translator(object):
 
 def translator(request):
     return {
-        'translator':Translator(request)
+        'translator': Translator(request)
     }
