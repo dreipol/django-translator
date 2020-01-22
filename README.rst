@@ -19,11 +19,11 @@ Quick start
 	)
 
 #. You have to set the migrations folder for the translator, because we have to add migrations for the set languages.  Add the following to your settings file::
-	
+
 	MIGRATION_MODULES = {
 	    'translator': 'my_project.translator_migrations',
 	}
-	
+
 #. Create a ``translator_migrations`` python package in your project folder (where your settings.py usually is).
 
 #. Run ``python manage.py makemigrations translator`` to create the translator models based on the languages you specified in your settings file.
@@ -31,25 +31,25 @@ Quick start
 #. Run ``python manage.py migrate`` to migrate the translator models to your database.
 
 #. If you intend to use it in the templates, add 'translator.context_processors.translator' to TEMPLATE_CONTEXT_PROCESSORS ::
-	 
+
 	 TEMPLATE_CONTEXT_PROCESSORS = (
 	 	...
 	    'translator.context_processors.translator',
 	 )
 
 #. Create translation keys in your templates and models.
-	
+
 	Examples:
-	
+
 	Template::
-	
+
 		{{ translator.a_key }}
-		
+
 	models.py::
-	
+
 		from translator.util import translator_lazy as _
 		...
-		
+
 		class Product(models.Model):
 		    name = models.TextField(verbose_name=_(u"a_key"))
 
@@ -59,6 +59,8 @@ Quick start
 
 
 #. You can disable the translator by setting DJANGO_TRANSLATOR_ENABLED to False.
+
+#. Use a double underscore in your translation keys to make use of the filter in the admin (e.g. "header__title" creates a filter called "header"). If you need another separator, set it as DJANGO_TRANSLATOR_CATEGORY_SEPARATOR in your setting file.
 
 Project Home
 ------------
