@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.utils.functional import lazy
 from django.utils.safestring import mark_safe
-from django.db.utils import OperationalError
+from django.db.utils import OperationalError, ProgrammingError
 from django.conf import settings
 import hashlib
 import logging
@@ -29,7 +29,7 @@ def get_translation_for_key(item):
                     result.save()
                     result = result.description
                 cache.set(key, result)
-        except OperationalError:
+        except (OperationalError, ProgrammingError):
             logging.getLogger(__name__).info("Unable to get translation for {0}".format(item), )
             result = item
     else:
