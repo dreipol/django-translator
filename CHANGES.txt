@@ -10,3 +10,4 @@ v1.0.8, 2015/09/09 -- uses six string types for lazy translator proxy object ins
 v1.0.9, 2015/09/09 -- uses six text types
 v1.0.9, 2015/09/09 -- added setting to disable translator (DJANGO_TRANSLATOR_ENABLED)
 v1.0.12, 2020/01/24 -- added feature filter keys in admin
+v1.0.13, 2020/02/04 -- Add support for Django 2.2
