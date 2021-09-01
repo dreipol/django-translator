@@ -51,7 +51,7 @@ Quick start
 		...
 
 		class Product(models.Model):
-		    name = models.TextField(verbose_name=_(u"a_key"))
+		    name = models.TextField(verbose_name=_('a_key'))
 
 #. Visit the templates. The keys get collected lazy.
 
@@ -61,6 +61,82 @@ Quick start
 #. You can disable the translator by setting DJANGO_TRANSLATOR_ENABLED to False.
 
 #. Use a double underscore in your translation keys to make use of the filter in the admin (e.g. "header__title" creates a filter called "header"). If you need another separator, set it as DJANGO_TRANSLATOR_CATEGORY_SEPARATOR in your setting file.
+
+
+Custom Models
+-------------
+
+If you find yourself in a situation where you need to use the features of django-translator in a second isolated model, feel free to add one:
+
+#. Create a new model in your app::
+
+    from translator.models import TranslationBase
+
+    class MyCustomTranslation(TranslationBase):
+        pass
+
+
+#. Create a new file `translation.py` and register your model for modeltranslation support::
+
+    from modeltranslation.translator import translator, TranslationOptions
+    from myapp.models import MyCustomTranslation
+
+    class MyCustomTranslationOptions(TranslationOptions):
+        fields = ('description',)
+
+    translator.register(MyCustomTranslation, MyCustomTranslationOptions)
+
+
+#. Add a django admin in `admin.py`::
+
+    from django.contrib import admin
+    from translator.admin import TranslationAdministration
+    from myapp.models import MyCustomTranslation
+
+    @admin.register(MyCustomTranslation)
+    class CustomTranslationAdmin(TranslationAdministration):
+        pass
+
+
+#. Create the two helper functions::
+
+    import six
+    from django.utils.functional import lazy
+    from translator.util import get_translation_for_key
+    from myapp.models import MyCustomTranslation
+
+    def custom_translation(key):
+        return get_translation_for_key(key, model_class=MyCustomTranslation)
+
+    def custom_translation_lazy(item):
+        if len(item) == 0:
+            return ''
+        else:
+            return lazy(get_translation_for_key, six.text_type)(item, MyCustomTranslation)
+
+
+#. To add template support, you are able to extend the existing context processor like this::
+
+    DJANGO_TRANSLATOR_MODELS = (
+        ('custom_translation', 'myapp.models.MyCustomTranslation'),
+    )
+
+
+#. Create translation keys in your templates and models.
+
+	Examples:
+
+	Template::
+
+		{{ custom_translation.a_key }}
+
+	models.py::
+
+		from myapp.util import custom_translation_lazy
+		...
+
+		class Product(models.Model):
+		    name = models.TextField(verbose_name=custom_translation_lazy('a_key'))
 
 Project Home
 ------------

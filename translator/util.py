@@ -1,30 +1,34 @@
 # -*- coding: utf-8 -*-
-from django.utils.functional import lazy
-from django.utils.safestring import mark_safe
-from django.db.utils import OperationalError, ProgrammingError
-from django.conf import settings
 import hashlib
 import logging
+
 import six
+from django.conf import settings
+from django.db.utils import OperationalError, ProgrammingError
+from django.utils.functional import lazy
+from django.utils.safestring import mark_safe
 
 
-def get_translation_for_key(item):
+def get_translation_for_key(item, model_class=None):
     from django.core.exceptions import ObjectDoesNotExist
     from django.utils.translation import get_language
     from translator.models import Translation
     from django.core.cache import cache
 
     if getattr(settings, "DJANGO_TRANSLATOR_ENABLED", True):
+        if not model_class:
+            model_class = Translation  # We are using the Translation model as default
+
         lang = get_language()
-        key = get_key(lang, item)
+        key = get_key(lang, item, model_class.cache_key_prefix)
         result = cache.get(key)
 
         try:
             if not result:
                 try:
-                    result = Translation.objects.get(key=item).description
+                    result = model_class.objects.get(key=item).description
                 except ObjectDoesNotExist:
-                    result = Translation(key=item)
+                    result = model_class(key=item)
                     result.description = item
                     result.save()
                     result = result.description
@@ -38,9 +42,9 @@ def get_translation_for_key(item):
     return mark_safe(result)
 
 
-def get_key(lang, item):
+def get_key(lang, item, prefix):
     item = hashlib.sha256(item.encode('utf-8')).hexdigest()
-    key = u'{0}-{1}'.format(lang, item)
+    key = u'{0}-{1}-{2}'.format(lang, prefix, item)
     return key
 
 
