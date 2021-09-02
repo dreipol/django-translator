@@ -6,7 +6,10 @@ import six
 from django.conf import settings
 from django.db.utils import OperationalError, ProgrammingError
 from django.utils.functional import lazy
+from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
+
+from translator.context_processors import DJANGO_TRANSLATOR_MODELS
 
 
 def get_translation_for_key(item, model_class=None):
@@ -48,15 +51,17 @@ def get_key(lang, item, prefix):
     return key
 
 
-def translator(key):
-    return get_translation_for_key(key)
+def translator(key, model_key=None):
+    model_class = get_model_class_by_key(model_key=model_key)
+    return get_translation_for_key(item=key, model_class=model_class)
 
 
-def translator_lazy(item):
+def translator_lazy(item, model_key=None):
     if len(item) == 0:
         return ''
     else:
-        return lazy(get_translation_for_key, six.text_type)(item)
+        model_class = get_model_class_by_key(model_key=model_key)
+        return lazy(get_translation_for_key, six.text_type)(item=item, model_class=model_class)
 
 
 def translator_lazy_str(item):
@@ -64,3 +69,14 @@ def translator_lazy_str(item):
         return ''
     else:
         return lazy(get_translation_for_key, str)(item)
+
+
+def get_model_class_by_key(model_key=None):
+    if not model_key:
+        return None
+
+    model_class_path = DJANGO_TRANSLATOR_MODELS.get(model_key)
+    try:
+        return import_string(model_class_path)
+    except ImportError:
+        return None

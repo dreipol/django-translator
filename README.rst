@@ -98,28 +98,11 @@ If you find yourself in a situation where you need to use the features of django
         pass
 
 
-#. Create the two helper functions::
+#. Add your model to your settings file::
 
-    import six
-    from django.utils.functional import lazy
-    from translator.util import get_translation_for_key
-    from myapp.models import MyCustomTranslation
-
-    def custom_translation(key):
-        return get_translation_for_key(key, model_class=MyCustomTranslation)
-
-    def custom_translation_lazy(item):
-        if len(item) == 0:
-            return ''
-        else:
-            return lazy(get_translation_for_key, six.text_type)(item, MyCustomTranslation)
-
-
-#. To add template support, you are able to extend the existing context processor like this::
-
-    DJANGO_TRANSLATOR_MODELS = (
-        ('custom_translation', 'myapp.models.MyCustomTranslation'),
-    )
+    DJANGO_TRANSLATOR_MODELS = {
+        'custom_translation': 'myapp.models.MyCustomTranslation',
+    }
 
 
 #. Create translation keys in your templates and models.
@@ -136,7 +119,7 @@ If you find yourself in a situation where you need to use the features of django
 		...
 
 		class Product(models.Model):
-		    name = models.TextField(verbose_name=custom_translation_lazy('a_key'))
+		    name = models.TextField(verbose_name=translator_lazy('a_key', 'custom_translation'))
 
 Project Home
 ------------
