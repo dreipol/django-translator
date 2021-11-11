@@ -2,10 +2,15 @@
 from django.conf import settings
 from django.core.cache import cache
 from django.db import models
-from django.utils.decorators import classproperty
 from taggit.managers import TaggableManager
 
 from translator.util import get_key
+
+try:
+    # Django 3.1 and above
+    from django.utils.functional import classproperty
+except ImportError:
+    from django.utils.decorators import classproperty
 
 
 class TranslationBase(models.Model):
