@@ -13,10 +13,11 @@ from translator.context_processors import DJANGO_TRANSLATOR_MODELS
 
 
 def get_translation_for_key(item, model_class=None):
+    from django.core.cache import cache
     from django.core.exceptions import ObjectDoesNotExist
     from django.utils.translation import get_language
+
     from translator.models import Translation
-    from django.core.cache import cache
 
     if getattr(settings, "DJANGO_TRANSLATOR_ENABLED", True):
         if not model_class:
@@ -35,7 +36,12 @@ def get_translation_for_key(item, model_class=None):
                     result.description = item
                     result.save()
                     result = result.description
-                cache.set(key, result)
+
+                custom_cache_timeout = getattr(settings, "DJANGO_TRANSLATOR_CACHE_TIMEOUT")
+                if custom_cache_timeout:
+                    cache.set(key, result, timeout=custom_cache_timeout)
+                else:
+                    cache.set(key, result)
         except (OperationalError, ProgrammingError):
             logging.getLogger(__name__).info("Unable to get translation for {0}".format(item), )
             result = item
