@@ -4,7 +4,7 @@ from setuptools import setup
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
-reqs = ['Django>=1.7', 'django-modeltranslation>=0.10.0', 'django-taggit>= 0.12.0']
+reqs = ['Django>=3.2', 'django-modeltranslation>=0.18.4', 'django-taggit>= 2.0.0']
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
