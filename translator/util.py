@@ -2,7 +2,7 @@
 import hashlib
 import logging
 
-import six
+
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.db.utils import OperationalError, ProgrammingError
@@ -65,7 +65,7 @@ def translator_lazy(item, model_key=None):
         return ''
     else:
         model_class = get_model_class_by_key(model_key=model_key)
-        return lazy(get_translation_for_key, six.text_type)(item=item, model_class=model_class)
+        return lazy(get_translation_for_key, str)(item=item, model_class=model_class)
 
 
 def translator_lazy_str(item):
