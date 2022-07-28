@@ -121,6 +121,13 @@ If you find yourself in a situation where you need to use the features of django
 		class Product(models.Model):
 		    name = models.TextField(verbose_name=translator_lazy('a_key', 'custom_translation'))
 
+Settings
+-------------
+Customize the translator in your settings.py file with these settings::
+
+	DJANGO_TRANSLATOR_CACHE_TIMEOUT = timeout in seconds, if not set defaults to DEFAULT_TIMEOUT, which is either the CACHES['TIMEOUT'] setting or 300 (5 minutes)
+
+
 Project Home
 ------------
 https://github.com/dreipol/django-translator
