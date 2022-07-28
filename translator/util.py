@@ -4,6 +4,7 @@ import logging
 
 import six
 from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.db.utils import OperationalError, ProgrammingError
 from django.utils.functional import lazy
 from django.utils.module_loading import import_string
@@ -11,6 +12,7 @@ from django.utils.safestring import mark_safe
 
 from translator.context_processors import DJANGO_TRANSLATOR_MODELS
 
+CACHE_TIMEOUT = getattr(settings, "DJANGO_TRANSLATOR_CACHE_TIMEOUT", DEFAULT_TIMEOUT)
 
 def get_translation_for_key(item, model_class=None):
     from django.core.cache import cache
@@ -37,11 +39,7 @@ def get_translation_for_key(item, model_class=None):
                     result.save()
                     result = result.description
 
-                custom_cache_timeout = getattr(settings, "DJANGO_TRANSLATOR_CACHE_TIMEOUT")
-                if custom_cache_timeout:
-                    cache.set(key, result, timeout=custom_cache_timeout)
-                else:
-                    cache.set(key, result)
+                cache.set(key, result, timeout=CACHE_TIMEOUT)
         except (OperationalError, ProgrammingError):
             logging.getLogger(__name__).info("Unable to get translation for {0}".format(item), )
             result = item
