@@ -11,13 +11,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-translator',
-    version='1.0.15',
+    version='1.1.0',
     packages=['translator'],
     include_package_data=True,
     license='MIT License',
     description='Translator is an app for collecting translations for specified keys in django admin.',
     long_description=README,
-    url='http://www.dreipol.ch/',
+    url='https://www.dreipol.ch/',
     author='dreipol GmbH',
     author_email='dev@dreipol.ch',
     classifiers=[
