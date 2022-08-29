@@ -125,6 +125,7 @@ Settings
 -------------
 Customize the translator in your settings.py file with these settings::
 
+	DJANGO_TRANSLATOR_CACHE_PREFIX = cache key prefix, if not set defaults to "translator:"
 	DJANGO_TRANSLATOR_CACHE_TIMEOUT = timeout in seconds, if not set defaults to DEFAULT_TIMEOUT, which is either the CACHES['TIMEOUT'] setting or 300 (5 minutes)
 
 
