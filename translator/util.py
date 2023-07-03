@@ -12,7 +12,6 @@ from django.utils.safestring import mark_safe
 from translator.context_processors import DJANGO_TRANSLATOR_MODELS
 
 CACHE_TIMEOUT = getattr(settings, "DJANGO_TRANSLATOR_CACHE_TIMEOUT", DEFAULT_TIMEOUT)
-TRANSLATOR_IS_ENABLED = getattr(settings, "DJANGO_TRANSLATOR_ENABLED", True)
 
 
 def get_translation_for_key(item, model_class=None):
@@ -22,7 +21,7 @@ def get_translation_for_key(item, model_class=None):
 
     from translator.models import Translation
 
-    if TRANSLATOR_IS_ENABLED:
+    if getattr(settings, "DJANGO_TRANSLATOR_ENABLED", True):
         if not model_class:
             model_class = Translation  # We are using the Translation model as default
 
