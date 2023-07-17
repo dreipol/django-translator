@@ -11,6 +11,8 @@ from django.utils.safestring import mark_safe
 
 from translator.context_processors import DJANGO_TRANSLATOR_MODELS
 
+
+CACHE_PREFIX = getattr(settings, "DJANGO_TRANSLATOR_CACHE_PREFIX", "translator:")
 CACHE_TIMEOUT = getattr(settings, "DJANGO_TRANSLATOR_CACHE_TIMEOUT", DEFAULT_TIMEOUT)
 
 
@@ -51,7 +53,7 @@ def get_translation_for_key(item, model_class=None):
 
 def get_key(lang, item, prefix):
     item = hashlib.sha256(item.encode('utf-8')).hexdigest()
-    key = u'{0}-{1}-{2}'.format(lang, prefix, item)
+    key = u'{}{0}-{1}-{2}'.format(CACHE_PREFIX, lang, prefix, item)
     return key
 
 
