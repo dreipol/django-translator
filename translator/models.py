@@ -21,9 +21,8 @@ class TranslationBase(models.Model):
         return self.key
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        all_translation_keys = self.__class__.objects.all().values_list('key', flat=True)
-        for l in settings.LANGUAGES:
-            cache.delete_many([get_key(l[0], k, self.cache_key_prefix) for k in all_translation_keys])
+        for language_code, _ in settings.LANGUAGES:
+            cache.delete(get_key(language_code, self.key, self.cache_key_prefix))
         return super().save(force_insert, force_update, using, update_fields)
 
     @classproperty
