@@ -9,7 +9,7 @@ from translator.util import get_key
 
 
 class TranslationBase(models.Model):
-    key = models.CharField(max_length=255, unique=True)
+    key = models.CharField(max_length=255, primary_key=True)
     description = models.TextField()
 
     tags = TaggableManager(blank=True)
