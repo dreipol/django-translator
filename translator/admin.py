@@ -29,10 +29,10 @@ class KeyFilter(admin.SimpleListFilter):
 
 
 class TranslationAdministration(TranslationAdmin):
-    list_filter = (KeyFilter, 'tags',)
-    search_fields = ['key', 'description', ]
+    list_filter = (KeyFilter,)
+    search_fields = ['key', 'description']
     ordering = ('key',)
-    list_display = ('key', 'description',)
+    list_display = ('key', 'description')
     list_editable = ('description',)
 
 

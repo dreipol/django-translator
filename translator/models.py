@@ -3,7 +3,6 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db import models
 from django.utils.functional import classproperty
-from taggit.managers import TaggableManager
 
 from translator.util import get_key
 
@@ -12,12 +11,10 @@ class TranslationBase(models.Model):
     key = models.CharField(max_length=255, primary_key=True)
     description = models.TextField()
 
-    tags = TaggableManager(blank=True)
-
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.key
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
