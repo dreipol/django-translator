@@ -17,3 +17,4 @@ v1.1.0, 2022/07/28 -- Support custom cache duration. Add support for Django >= 4
 v1.1.1, 2023/07/07 -- Let developers enable or disable django-translator per unit test
 v1.2.0, 2024/09/03 -- Use key as primary key field
 v2.0.0, 2024/09/04 -- BREAKING: Removed tags field to fix primary key issues with taggit
+v2.0.1, 2026/05/11 -- Add support for Django 6
