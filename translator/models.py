@@ -20,7 +20,12 @@ class TranslationBase(models.Model):
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         for language_code, _ in settings.LANGUAGES:
             cache.delete(get_key(language_code, self.key, self.cache_key_prefix))
-        return super().save(force_insert, force_update, using, update_fields)
+        return super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
+        )
 
     @classproperty
     def cache_key_prefix(self):
